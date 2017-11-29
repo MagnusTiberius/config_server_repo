@@ -1,0 +1,40 @@
+spring.application.name=DiagnosticService
+
+# Set size limits for blob upload
+spring.http.multipart.max-file-size = 10Mb
+spring.http.multipart.max-request-size = 10Mb
+
+# Custom logging level specific to Retrofit/OKHttpClient
+# possible values: NONE | BASIC | HEADERS | BODY
+logging.http.client.retrofit=BASIC
+
+# Sleuth-Zipkin Settings
+spring.zipkin.service.name=${spring.application.name}-${env:prod}
+spring.sleuth.sampler.percentage=1.0
+spring.zipkin.enabled=false
+
+# Disable security for Management endpoints
+management.security.enabled=false
+
+# Update context path for management end-points
+management.context-path=/about
+
+spring.jackson.serialization.write_dates_as_timestamps=false
+
+spring.metrics.export.enabled=true
+
+# Influx config for monitoring
+influxdb.enabled=false
+influxdb.env=${env:prod}
+influxdb.instanceId=${spring.application.instance_id:${random.value}}
+influxdb.applicationName=${spring.application.name}
+influxdb.metric.ignores=counter.span.accepted,classes.unloaded,favicon.ico,about.metrics,about.health,about.beans,star-star,swagger-resources,api-docs
+
+# Client production URLs
+blobStorage.baseUrl=http://prod-BlobStorage
+
+# AWS Dynamo DB
+amazon.dynamodb.endpoint=http://prod-DynamoDB
+amazon.aws.accesskey=prodAccessKey
+amazon.aws.secretkey=prodSecretKey
+amazon.dynamodb.scan.thread=1
