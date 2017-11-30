@@ -6,7 +6,7 @@ spring:
     consul:
       enabled: true
       host: consulserver
-      port: 8500
+      port: 8501
       discovery:
         register: true
         scheme: http
