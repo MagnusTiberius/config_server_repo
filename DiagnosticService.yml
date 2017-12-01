@@ -1,0 +1,54 @@
+spring:
+  profiles: docker
+  application:
+    name: DiagnosticService
+  cloud:
+    consul:
+      enabled: true
+      host: consulserver
+      port: 8501
+      discovery:
+        register: true
+        scheme: http
+        preferIpAddress: false
+        registerHealthCheck: true
+        healthCheckPath: "/health"
+        healthCheckInterval: 10s
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        tags: v1
+        failFast: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+ribbon:
+  MaxAutoRetries: 1
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+
+feign:
+  hystrix:
+    enabled: false
+    
+logging:
+    level:
+      com.comcast: 'DEBUG'
+      #org.apache.http.wire: 'DEBUG'
+      # Uncomment below line to enable logging for feign clients.
+      #com.comcast.xfinityhome.fs.client.DeviceDescriptorClient: 'DEBUG'
+
+health:
+  config:
+    enabled: false
+
+management:
+  security:
+    enabled: false
