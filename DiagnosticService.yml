@@ -38,6 +38,7 @@ feign:
   hystrix:
     enabled: false
     
+    
 logging:
     level:
       com.comcast: 'DEBUG'
@@ -52,3 +53,6 @@ health:
 management:
   security:
     enabled: false
+
+
+message: Hello
